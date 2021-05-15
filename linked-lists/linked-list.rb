@@ -14,7 +14,7 @@ class LinkedList
 
   def append(value)
     node = Node.new(value)
-    @head.nil? ? @head = node : @head.next = node
+    @head.nil? ? @head = node : @tail.next = node
     @tail = node
     @size += 1
     self
@@ -93,13 +93,7 @@ class LinkedList
 
     return prepend(value) if index.zero?
 
-    index -= 1
-    i = 0
-    node = @head
-    while i <= index
-      node = node.next
-      i += 1
-    end
+    node = at(index - 1)
 
     node.next = Node.new(value, node.next)
     @size += 1
@@ -111,14 +105,11 @@ class LinkedList
 
     return pop if index.zero?
 
-    node = @head
-    prev = nil
-    0.upto(index - 1) do
-      prev = node
-      node = node.next
-    end
+    prev = at(index - 1)
+    node = prev.next
 
     result = node
     prev.next = node.next
     result
+  end
 end
