@@ -2,7 +2,7 @@
 
 # A class implementing Linked list data structure
 class LinkedList
-  attr_reader :head, :size
+  attr_reader :head, :size, :tail
 
   def initialize(value = nil)
     @head = Node.new(value) unless value.nil?
