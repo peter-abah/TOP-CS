@@ -2,17 +2,19 @@
 
 # A class implementing Linked list data structure
 class LinkedList
-  attr_reader :head
+  attr_reader :head, :size
 
   def initialize(value = nil)
     @head = Node.new(value) unless value.nil?
     @tail = head
+    @size = @head.nil? ? 0 : 1
   end
 
   def append(value)
     node = Node.new(value)
     @head.nil? ? @head = node : @head.next = node
     @tail = node
+    @size += 1
     self
   end
 
@@ -27,6 +29,7 @@ class LinkedList
       @head = node
     end
 
+    @size += 1
     self
   end
 end
