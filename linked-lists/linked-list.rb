@@ -4,13 +4,22 @@
 class LinkedList
   attr_reader :head
 
-  def initialize(head = nil)
-    @head = head
+  def initialize(value = nil)
+    @head = Node.new(value) unless value.nil?
+    @tail = head
+  end
+
+  def append(value)
+    node = Node.new(value)
+    head.nil? ? @head = node : @head.next = node
+    @tail = node
+    self
   end
 end
 
 # A class to represent the node of a linked list
 class Node
+  attr_accessor :next
 
   def initialize(value)
     @value = value
