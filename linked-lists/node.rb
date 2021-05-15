@@ -5,8 +5,8 @@ class Node
   attr_accessor :next
   attr_reader :value
 
-  def initialize(value)
+  def initialize(value, next_node = nil)
     @value = value
-    @next = nil
+    @next = next_node
   end
 end
