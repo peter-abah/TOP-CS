@@ -62,6 +62,12 @@ class LinkedList
     end
     result
   end
+
+  def contains?(value)
+    node = @head
+    node = node.next until node.value == value || node.nil?
+    node.nil? ? false : true
+  end
 end
 
 # A class to represent the node of a linked list
