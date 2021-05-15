@@ -29,7 +29,7 @@ class LinkedList
   end
 
   def at(index)
-    return nil if index >= @size || index.negative?
+    return if index >= @size || index.negative?
 
     i = 0
     node = @head
@@ -92,7 +92,7 @@ class LinkedList
     return if index >= @size || index.negative?
 
     return prepend(value) if index.zero?
-  
+
     index -= 1
     i = 0
     node = @head
@@ -102,6 +102,23 @@ class LinkedList
     end
 
     node.next = Node.new(value, node.next)
+    @size += 1
     self
   end
+
+  def remove_at(index)
+    return if index >= @size || index.negative?
+
+    return pop if index.zero?
+
+    node = @head
+    prev = nil
+    0.upto(index - 1) do
+      prev = node
+      node = node.next
+    end
+
+    result = node
+    prev.next = node.next
+    result
 end
