@@ -32,6 +32,19 @@ class LinkedList
     @size += 1
     self
   end
+
+  def at(index)
+    return nil if index >= @size || index.negative?
+
+    i = 0
+    node = @head
+    while i < index
+      node = node.next
+      i += 1
+    end
+
+    node
+  end
 end
 
 # A class to represent the node of a linked list
