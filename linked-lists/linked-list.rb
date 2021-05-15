@@ -87,4 +87,21 @@ class LinkedList
     result.push('nil')
     result.join(' -> ')
   end
+
+  def insert_at(value, index)
+    return if index >= @size || index.negative?
+
+    return prepend(value) if index.zero?
+  
+    index -= 1
+    i = 0
+    node = @head
+    while i <= index
+      node = node.next
+      i += 1
+    end
+
+    node.next = Node.new(value, node.next)
+    self
+  end
 end
