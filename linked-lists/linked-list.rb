@@ -21,15 +21,8 @@ class LinkedList
   end
 
   def prepend(value)
-    node = Node.new(value)
-
-    if @head.nil?
-      @head = node
-      @tail = node
-    else
-      node.next = @head
-      @head = node
-    end
+    node = Node.new(value, @head)
+    @head = @head.nil? ? @tail = node : node
 
     @size += 1
     self
@@ -86,7 +79,7 @@ class LinkedList
     result = []
 
     node = @head
-    until node == nil
+    until node.nil?
       result.push("( #{node.value} )")
       node = node.next
     end
