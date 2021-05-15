@@ -68,6 +68,17 @@ class LinkedList
     node = node.next until node.value == value || node.nil?
     node.nil? ? false : true
   end
+
+  def find(value)
+    node = @head
+    i = 0
+    until node.value == value || node.nil?
+      node = node.next
+      i += 1
+    end
+
+    node.nil? ? nil : i
+  end
 end
 
 # A class to represent the node of a linked list
