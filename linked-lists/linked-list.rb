@@ -8,3 +8,12 @@ class LinkedList
     @head = head
   end
 end
+
+# A class to represent the node of a linked list
+class Node
+
+  def initialize(value)
+    @value = value
+    @next = nil
+  end
+end
