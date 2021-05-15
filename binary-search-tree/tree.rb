@@ -6,20 +6,24 @@ require_relative 'node'
 class Tree
   def initialize(array)
     array = array.uniq.sort
-    @root = build_tree(array)
+    @root = build_tree(array, 0, array.length)
   end
 
-  def build_tree(array)
-    return if array.empty?
+  def build_tree(array, start, end_index)
+    return if start > end_index
 
-    start = 0
-    end_index = array.length - 1
     mid = (start + end_index) / 2
 
     root = Node.new(array[mid])
-    root.left = build_tree(array[0..(mid - 1)])
-    root.right = build_tree(array[(mid + 1)..-1])
+    root.left = build_tree(array, start, mid - 1)
+    root.right = build_tree(array, mid + 1, end_index)
 
     root
+  end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
