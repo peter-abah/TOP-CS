@@ -79,6 +79,19 @@ class LinkedList
 
     node.nil? ? nil : i
   end
+
+  def to_s
+    result = []
+
+    node = @head
+    until node == nil
+      result.push("( #{node.value} )")
+      node = node.next
+    end
+
+    result.push('nil')
+    result.join(' -> ')
+  end
 end
 
 # A class to represent the node of a linked list
