@@ -6,7 +6,7 @@ class LinkedList
 
   def initialize(value = nil)
     @head = Node.new(value) unless value.nil?
-    @tail = head
+    @tail = @head
     @size = @head.nil? ? 0 : 1
   end
 
@@ -44,6 +44,23 @@ class LinkedList
     end
 
     node
+  end
+
+  def pop
+    return nil if @size.zero?
+
+    if @size == 1
+      result = @head
+      @head = @tail = nil
+    else
+      node = @head
+      node = node.next until node.next == @tail
+
+      result = @tail
+      @tail = node
+      node.next = nil
+    end
+    result
   end
 end
 
