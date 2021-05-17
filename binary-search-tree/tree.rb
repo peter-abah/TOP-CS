@@ -86,6 +86,26 @@ class Tree
     result
   end
 
+  def pre_order(root = @root)
+    result = []
+
+    result.push(root.value)
+    result.concat(pre_order(root.left)) if root.left
+    result.concat(pre_order(root.right)) if root.right
+
+    result
+  end
+
+  def post_order(root = @root)
+    result = []
+
+    result.concat(post_order(root.left)) if root.left
+    result.concat(post_order(root.right)) if root.right
+    result.push(root.value)
+
+    result
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
