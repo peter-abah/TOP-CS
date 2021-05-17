@@ -38,7 +38,7 @@ class Tree
       root.left = delete(value, root.left)
     elsif root.value < value
       root.right = delete(value, root.right)
-      
+
     elsif root.left.nil?
       root = root.right
     elsif root.right.nil?
@@ -49,6 +49,16 @@ class Tree
       delete(next_node.value, root)
       root.value = next_node.value
     end
+    root
+  end
+
+  def find(value, root = @root)
+    return if root.nil?
+
+    return find(value, root.right) if root.value < value
+
+    return find(value, root.left) if root.value > value
+
     root
   end
 
