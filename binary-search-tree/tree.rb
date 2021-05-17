@@ -31,9 +31,38 @@ class Tree
     end
   end
 
+  def delete(value, root = @root)
+    return root if root.nil?
+
+    if root.value > value
+      root.left = delete(value, root.left)
+    elsif root.value < value
+      root.right = delete(value, root.right)
+      
+    elsif root.left.nil?
+      root = root.right
+    elsif root.right.nil?
+      root = root.left
+
+    else
+      next_node = min_node(root.right)
+      delete(next_node.value, root)
+      root.value = next_node.value
+    end
+    root
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+
+  private
+
+  def min_node(node)
+    min = node
+    min = min.left until min.left.nil?
+    min
   end
 end
