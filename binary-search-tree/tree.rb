@@ -62,6 +62,20 @@ class Tree
     root
   end
 
+  def level_order
+    result = []
+    queue = [@root]
+
+    until queue.empty?
+      node = queue.shift
+      result.push(node.value)
+      queue.push(node.left) if node.left
+      queue.push(node.right) if node.right
+    end
+
+    result
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
