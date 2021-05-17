@@ -4,6 +4,8 @@ require_relative 'node'
 
 # A class implementing binary search trees data structure
 class Tree
+  attr_reader :root
+
   def initialize(array)
     array = array.uniq.sort
     @root = build_tree(array, 0, array.length - 1)
@@ -113,6 +115,14 @@ class Tree
     h1 = height(root.right) + 1
 
     [h0, h1].max
+  end
+
+  def depth(node, root = @root, d = 0)
+    return if root.nil?
+
+    return d if node == root
+
+    depth(node, root.left, d + 1) || depth(node, root.right, d + 1)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
