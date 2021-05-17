@@ -133,6 +133,11 @@ class Tree
     balanced?(node.left) && balanced?(node.right)
   end
 
+  def rebalance
+    array = in_order
+    @root = build_tree(array, 0, array.length - 1)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
@@ -147,12 +152,3 @@ class Tree
     min
   end
 end
-
-tree = Tree.new(Array.new(20) { rand(20) })
-p tree.balanced?
-tree.pretty_print
-
-tree.insert(Node.new(34))
-tree.insert(Node.new(20))
-tree.pretty_print
-p tree.balanced?
