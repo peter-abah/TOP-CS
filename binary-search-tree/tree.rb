@@ -23,13 +23,13 @@ class Tree
     root_node
   end
 
-  def insert(node, root_node = @root)
-    return if node == root_node
+  def insert(value, root_node = @root)
+    return if value == root_node.value
 
-    if root_node < node
-      root_node.right ? insert(node, root_node.right) : root_node.right = node
+    if root_node.value < value
+      root_node.right ? insert(value, root_node.right) : root_node.right = Node.new(value)
     else
-      root_node.left ? insert(node, root_node.left) : root_node.left = node
+      root_node.left ? insert(value, root_node.left) : root_node.left = Node.new(value)
     end
   end
 
