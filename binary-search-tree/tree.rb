@@ -16,52 +16,52 @@ class Tree
 
     mid = (start + end_index) / 2
 
-    root = Node.new(array[mid])
-    root.left = build_tree(array, start, mid - 1)
-    root.right = build_tree(array, mid + 1, end_index)
+    root_node = Node.new(array[mid])
+    root_node.left = build_tree(array, start, mid - 1)
+    root_node.right = build_tree(array, mid + 1, end_index)
 
-    root
+    root_node
   end
 
-  def insert(node, root = @root)
-    return if node == root
+  def insert(node, root_node = @root)
+    return if node == root_node
 
-    if root < node
-      root.right ? insert(node, root.right) : root.right = node
+    if root_node < node
+      root_node.right ? insert(node, root_node.right) : root_node.right = node
     else
-      root.left ? insert(node, root.left) : root.left = node
+      root_node.left ? insert(node, root_node.left) : root_node.left = node
     end
   end
 
-  def delete(value, root = @root)
-    return root if root.nil?
+  def delete(value, root_node = @root)
+    return root_node if root_node.nil?
 
-    if root.value > value
-      root.left = delete(value, root.left)
-    elsif root.value < value
-      root.right = delete(value, root.right)
+    if root_node.value > value
+      root_node.left = delete(value, root_node.left)
+    elsif root_node.value < value
+      root_node.right = delete(value, root_node.right)
 
-    elsif root.left.nil?
-      root = root.right
-    elsif root.right.nil?
-      root = root.left
+    elsif root_node.left.nil?
+      root_node = root_node.right
+    elsif root_node.right.nil?
+      root_node = root_node.left
 
     else
-      next_node = min_node(root.right)
-      delete(next_node.value, root)
-      root.value = next_node.value
+      next_node = min_node(root_node.right)
+      delete(next_node.value, root_node)
+      root_node.value = next_node.value
     end
-    root
+    root_node
   end
 
-  def find(value, root = @root)
-    return if root.nil?
+  def find(value, node = @root)
+    return if node.nil?
 
-    return find(value, root.right) if root.value < value
+    return find(value, node.right) if node.value < value
 
-    return find(value, root.left) if root.value > value
+    return find(value, node.left) if node.value > value
 
-    root
+    node
   end
 
   def level_order
@@ -78,51 +78,59 @@ class Tree
     result
   end
 
-  def in_order(root = @root)
+  def in_order(node = @root)
     result = []
 
-    result.concat(in_order(root.left)) if root.left
-    result.push(root.value)
-    result.concat(in_order(root.right)) if root.right
+    result.concat(in_order(node.left)) if node.left
+    result.push(node.value)
+    result.concat(in_order(node.right)) if node.right
 
     result
   end
 
-  def pre_order(root = @root)
+  def pre_order(node = @root)
     result = []
 
-    result.push(root.value)
-    result.concat(pre_order(root.left)) if root.left
-    result.concat(pre_order(root.right)) if root.right
+    result.push(node.value)
+    result.concat(pre_order(node.left)) if node.left
+    result.concat(pre_order(node.right)) if node.right
 
     result
   end
 
-  def post_order(root = @root)
+  def post_order(node = @root)
     result = []
 
-    result.concat(post_order(root.left)) if root.left
-    result.concat(post_order(root.right)) if root.right
-    result.push(root.value)
+    result.concat(post_order(node.left)) if node.left
+    result.concat(post_order(node.right)) if node.right
+    result.push(node.value)
 
     result
   end
 
-  def height(root = @root)
-    return -1 if root.nil?
+  def height(node = @root)
+    return -1 if node.nil?
 
-    h0 = height(root.left) + 1
-    h1 = height(root.right) + 1
+    h0 = height(node.left) + 1
+    h1 = height(node.right) + 1
 
     [h0, h1].max
   end
 
-  def depth(node, root = @root, d = 0)
-    return if root.nil?
+  def depth(node, root_node = @root, d = 0)
+    return if root_node.nil?
 
-    return d if node == root
+    return d if node == root_node
 
-    depth(node, root.left, d + 1) || depth(node, root.right, d + 1)
+    depth(node, root_node.left, d + 1) || depth(node, root_node.right, d + 1)
+  end
+
+  def balanced?(node = @root)
+    return true if node.nil?
+
+    return false if (node.left.nil? ^ node.right.nil?) && height(node) > 1
+
+    balanced?(node.left) && balanced?(node.right)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -139,3 +147,12 @@ class Tree
     min
   end
 end
+
+tree = Tree.new(Array.new(20) { rand(20) })
+p tree.balanced?
+tree.pretty_print
+
+tree.insert(Node.new(34))
+tree.insert(Node.new(20))
+tree.pretty_print
+p tree.balanced?
