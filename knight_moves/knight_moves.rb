@@ -23,3 +23,17 @@ def find_destination(node)
 
   node
 end
+
+def valid_moves((x, y))
+  result = []
+  result.push([x - 1, y - 2])
+  result.push([x - 2, y - 1])
+  result.push([x + 1, y - 2])
+  result.push([x + 2, y - 1])
+  result.push([x - 2, y + 1])
+  result.push([x - 1, y + 2])
+  result.push([x + 1, y + 2])
+  result.push([x + 2, y + 1])
+
+  result.select { |pos| valid_move(pos) }
+end
