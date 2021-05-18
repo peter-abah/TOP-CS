@@ -4,8 +4,11 @@ def knight_moves(location, destination)
   return [location] if location == destination
 
   root = Node.new(location)
-  queue = [root]
-  node = nil
+  node = find_destination(root)
+end
+
+def find_destination(node)
+  queue = [node]
   is_done = false
 
   until is_done
@@ -17,4 +20,6 @@ def knight_moves(location, destination)
       queue.concat(nodes)
     end
   end
+
+  node
 end
