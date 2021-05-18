@@ -1,19 +1,13 @@
 # frozen_string_literal: true
 
+# frozen_string_literal: true
+
 # A class to implement a node
 class Node
-  attr_reader :child_nodes
-  attr_accessor :parent
+  attr_reader :value, :parent
 
-  def initialize(parent = nil)
+  def initialize(value, parent = nil)
+    @value = value
     @parent = parent
-    @child_nodes = []
-  end
-
-  def add_child(node)
-    return if child_nodes.contain?(node)
-
-    node.parent = self
-    @child_nodes.push(node)
   end
 end
