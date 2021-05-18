@@ -1,13 +1,23 @@
 # frozen_string_literal: true
 
+require_relative 'node'
+
 def knight_moves(location, destination)
   return [location] if location == destination
 
   root = Node.new(location)
-  node = find_destination(root)
+  node = find_destination(root, destination)
+
+  result = []
+  until node.nil?
+    result.push(node.value)
+    node = node.parent
+  end
+
+  result.reverse
 end
 
-def find_destination(node)
+def find_destination(node, destination)
   queue = [node]
   is_done = false
 
@@ -26,20 +36,21 @@ end
 
 def valid_moves((x, y))
   result = []
-  result.push([x - 1, y - 2])
-  result.push([x - 2, y - 1])
-  result.push([x + 1, y - 2])
-  result.push([x + 2, y - 1])
-  result.push([x - 2, y + 1])
-  result.push([x - 1, y + 2])
-  result.push([x + 1, y + 2])
-  result.push([x + 2, y + 1])
 
+  [-1, -2, 1, 2].each do |n|
+    if n.abs == 1
+      result.push([x + n, y - 2])
+      result.push([x + n, y + 2])
+    else
+      result.push([x + n, y - 1])
+      result.push([x + n, y + 1])
+    end
+  end
   result.select { |pos| valid_move(pos) }
 end
 
 def valid_move((x, y))
-  return false if x.negative? || x > 7 || y.negative || y > 7
+  return false if x.negative? || x > 7 || y.negative? || y > 7
 
   true
 end
