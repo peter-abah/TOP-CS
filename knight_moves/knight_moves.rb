@@ -37,3 +37,9 @@ def valid_moves((x, y))
 
   result.select { |pos| valid_move(pos) }
 end
+
+def valid_move((x, y))
+  return false if x.negative? || x > 7 || y.negative || y > 7
+
+  true
+end
